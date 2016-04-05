@@ -49,7 +49,8 @@ public class WordCount extends Configured implements Tool
             super(Text.class, true);
         }
         
-        @Override public int compare(WritableComparable a, WritableComparable b)
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+		@Override public int compare(WritableComparable a, WritableComparable b)
         {
             // Here we use exploit the implementation of compareTo(...) in Text.class.
             return -a.compareTo(b);
