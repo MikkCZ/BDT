@@ -2,6 +2,7 @@ package cz.cvut.bigdata.wordcount;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
@@ -90,9 +91,19 @@ public class WordCount extends Configured implements Tool {
 			String[] words = value.toString().split(" ");
 
 			for (String term : words) {
-				word.set(term);
-				context.write(word, ONE);
+				term = StringUtils.stripAccents(term);
+				if (isAllowed(term)) {
+					word.set(term.toLowerCase());
+					context.write(word, ONE);
+				}
 			}
+		}
+
+		private boolean isAllowed(String term) {
+			return StringUtils.isAsciiPrintable(term) &&
+					StringUtils.isAlpha(term) &&
+					term.length() >= 3 &&
+					term.length() <= 24;
 		}
 	}
 
