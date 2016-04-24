@@ -10,7 +10,7 @@
 		<jdk.version>1.8</jdk.version>
 		<hadoop.version>2.6.0</hadoop.version>
 		<cdh.version>cdh5.5.1</cdh.version>
-		<main.class>cz.cvut.bigdata.wordcount.WordCount</main.class>
+		<main.class>cz.cvut.bigdata.wordcount.MainRunner</main.class>
 	</properties>
 	<repositories>
 		<repository>
