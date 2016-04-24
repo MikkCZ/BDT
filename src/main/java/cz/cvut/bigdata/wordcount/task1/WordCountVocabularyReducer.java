@@ -26,7 +26,7 @@ public class WordCountVocabularyReducer extends Reducer<Text, IntWritable, Text,
 			}
 		}
 		
-		if(sum < 3 ) { // too few occurrences
+		if(sum < 20) { // too few occurrences
 			return;
 		}
 
