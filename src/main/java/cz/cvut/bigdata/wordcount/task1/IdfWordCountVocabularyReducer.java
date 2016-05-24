@@ -1,7 +1,6 @@
 package cz.cvut.bigdata.wordcount.task1;
 
 import cz.cvut.bigdata.wordcount.MainRunner;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -15,23 +14,29 @@ import java.io.IOException;
  * 
  * NOTE: The received list may not contain only 1s if a combiner is used.
  */
-public class WordCountVocabularyReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
-	public void reduce(Text text, Iterable<IntWritable> values, Context context)
+public class IdfWordCountVocabularyReducer extends Reducer<Text, Text, Text, Text> {
+	public void reduce(Text text, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
 		int sum = 0;
-		final boolean isN = WordCountPreprocessingMapper.isN(text.toString());
 
-		for (IntWritable value : values) {
-			sum += value.get();
-			if(sum > MainRunner.STOP_FREQUENCY && !isN ) { // too many occurrences
+		for (Text value : values) {
+			sum += Integer.parseInt(value.toString());
+			if(sum > MainRunner.STOP_FREQUENCY) { // too many occurrences
 				return;
 			}
 		}
 		
-		if(sum < MainRunner.TYPO_FREQUENCY && !isN) { // too few occurrences
+		if(sum < MainRunner.TYPO_FREQUENCY) { // too few occurrences
 			return;
 		}
 
-		context.write(text, new IntWritable(sum));
+		context.write(text, new Text(idf(sum)));
+	}
+
+	private String idf(int sum) {
+		double a = ((double)MainRunner.TOTAL_WORD_N)-sum+0.5;
+		double b = ((double)sum)+0.5;
+		double idf = Math.log(a/b);
+		return String.format("%.5f", idf);
 	}
 }

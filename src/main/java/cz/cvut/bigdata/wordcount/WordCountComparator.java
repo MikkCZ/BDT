@@ -1,4 +1,4 @@
-package cz.cvut.bigdata.wordcount.task1;
+package cz.cvut.bigdata.wordcount;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;

@@ -58,7 +58,7 @@ public class Task1Runner extends Configured implements Tool {
 		// to be 1, similarly you can set up the number of
 		// reducers with the following line.
 		//
-		// job.setNumReduceTasks(1);
+		job.setNumReduceTasks(1);
 
 		// Specify (key, value).
 		job.setOutputKeyClass(Text.class);
