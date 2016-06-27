@@ -40,6 +40,7 @@ public class Task3Runner extends Configured implements Tool {
 
         // Create job.
         Job job = Job.getInstance(conf, "TF count");
+        job.getConfiguration().set("mapreduce.output.basename", "task3");
         job.addCacheFile(cachedFile.toUri());
 
         job.setJarByClass(TfMapper.class);

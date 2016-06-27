@@ -38,6 +38,7 @@ public class IdfTask1Runner extends Configured implements Tool {
 
         // Create job.
         Job job = Job.getInstance(conf, "WordCount");
+        job.getConfiguration().set("mapreduce.output.basename", "task1idf");
         job.setJarByClass(IdfWordCountPreprocessingMapper.class);
 
         // Setup MapReduce.

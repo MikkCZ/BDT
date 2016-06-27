@@ -44,8 +44,8 @@ public class MainRunner {
         } else {
             runTask("DF", new Task1Runner(), new String[]{inputPath, outputDir+"1"});
             runTask("IDF", new IdfTask1Runner(), new String[]{inputPath, outputDir+"1idf"});
-            runTask("TF", new Task3Runner(), new String[]{inputPath, outputDir+"1/part-r-00000", outputDir+"3"});
-            runTask("INV INDEX", new Task4Runner(), new String[]{inputPath, outputDir+"1/part-r-00000", outputDir+"4"});
+            runTask("TF", new Task3Runner(), new String[]{inputPath, outputDir+"1/task1-r-00000", outputDir+"3"});
+            runTask("INV INDEX", new Task4Runner(), new String[]{inputPath, outputDir+"1/task1-r-00000", outputDir+"3/task3-r-00000", outputDir+"4"});
         }
 
         //runTask("STOPWORDS and TYPOS", new Task2Runner(), new String[]{outputDir+"1/part-r-00000", outputDir+"2"});

@@ -21,8 +21,9 @@ public class Task4Runner extends Configured implements Tool {
     @Override
     public int run(String[] arguments) throws Exception {
         final Path inputPath = new Path(arguments[0]);
-        final Path cachedFile = new Path(arguments[1]);
-        final Path outputDir = new Path(arguments[2]);
+        final Path cachedFile1 = new Path(arguments[1]);
+        final Path cachedFile3 = new Path(arguments[2]);
+        final Path outputDir = new Path(arguments[3]);
 
         // Create configuration.
         Configuration conf = getConf();
@@ -39,7 +40,9 @@ public class Task4Runner extends Configured implements Tool {
 
         // Create job.
         Job job = Job.getInstance(conf, "Invert index");
-        job.addCacheFile(cachedFile.toUri());
+        job.getConfiguration().set("mapreduce.output.basename", "task4");
+        job.addCacheFile(cachedFile1.toUri());
+        job.addCacheFile(cachedFile3.toUri());
 
         job.setJarByClass(InvertMapper.class);
 

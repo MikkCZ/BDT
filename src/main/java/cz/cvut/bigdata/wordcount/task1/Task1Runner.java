@@ -38,6 +38,7 @@ public class Task1Runner extends Configured implements Tool {
 
 		// Create job.
 		Job job = Job.getInstance(conf, "WordCount");
+		job.getConfiguration().set("mapreduce.output.basename", "task1");
 		job.setJarByClass(WordCountPreprocessingMapper.class);
 
 		// Setup MapReduce.
