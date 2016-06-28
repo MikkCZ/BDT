@@ -1,6 +1,7 @@
 package cz.cvut.bigdata.wordcount;
 
 import cz.cvut.bigdata.cli.ArgumentParser;
+import cz.cvut.bigdata.wordcount.query.Query;
 import cz.cvut.bigdata.wordcount.task1.IdfTask1Runner;
 import cz.cvut.bigdata.wordcount.task1.Task1Runner;
 import cz.cvut.bigdata.wordcount.task3.Task3Runner;
@@ -31,7 +32,7 @@ public class MainRunner {
 
         parser.addArgument("query", true, false, "specify query");
 		parser.addArgument("input", true, true, "specify input directory");
-		parser.addArgument("output", true, true, "specify output directory");
+		parser.addArgument("output", true, false, "specify output directory");
 
 		parser.parseAndCheck(arguments);
 
@@ -40,7 +41,11 @@ public class MainRunner {
         final String outputDir = parser.getString("output");
 
         if(query != null) {
-            //runTask("Query", new QueryRunner(query), new String[]{outputDir+"4/part-r-00000", outputDir+"1idf/part-r-00000"});
+            new Query(
+                    query,
+                    inputPath+"1idf/task1idf-r-00000",
+                    inputPath+"4/task4-r-00000"
+            );
         } else {
             runTask("DF", new Task1Runner(), new String[]{inputPath, outputDir+"1"});
             runTask("IDF", new IdfTask1Runner(), new String[]{inputPath, outputDir+"1idf"});
